@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Precision Toolkit for AI</title>
+<meta name="description" content="A workbench of tools that carry precision, the discipline of getting the reference right and building on it without loss, into work that usually goes without it: coordination, evaluation, and meaning. Start with your problem, get the tool, run it in your own AI.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Precision Toolkit for AI">
+<meta property="og:description" content="Precision as a transferable stance across fields. Start with your problem; the tools establish the verified floor of what is there and hand the worth-judgment back to you.">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Geist:wght@300..600&family=Geist+Mono:wght@300..500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0c; --bg2:#101012; --panel:#141416; --panel2:#191a1d;
+    --ink:#ECEAE2; --dim:#b9b7ad; --faint:#8a887e;
+    --cool:#8fa6b0; --cool-line:#41535c;      /* steel: machine, floor, tool */
+    --warm:#c56b5f; --warm-line:#6e3a33;       /* oxblood: the human hand-back */
+    --brass:#c2a878; --brass-line:#6a5a3c;     /* gauge-block metal, used sparingly */
+    --rich-c:#7fb8a0;
+    --hair:rgba(236,234,226,.11);
+    --hair2:rgba(236,234,226,.06);
+    --serif:"Fraunces",Georgia,serif; --sans:"Geist",system-ui,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg); color:var(--ink); font-family:var(--sans); font-weight:300; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden}
+  a{color:inherit}
+  .mono{font-family:var(--mono); text-transform:uppercase; letter-spacing:.18em; font-size:11px; color:var(--dim)}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 clamp(20px,5vw,32px)}
+  .narrow{max-width:760px}
+
+  /* nav */
+  nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(10px); background:rgba(10,11,13,.72); border-bottom:1px solid var(--hair)}
+  .nav-in{display:flex; align-items:center; justify-content:space-between; height:60px}
+  .brand{font-family:var(--mono); font-size:12.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink); text-decoration:none}
+  .brand b{color:var(--cool); font-weight:500}
+  .tabs{display:flex; gap:4px; align-items:center}
+  .tab{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); padding:8px 13px; border:1px solid transparent; border-radius:2px; text-decoration:none; transition:.25s}
+  .tab:hover{color:var(--ink); border-color:var(--hair)}
+  @media(max-width:680px){ .tabs .tab{display:none} .tabs .tab.keep{display:inline-block; padding:8px 11px} }
+
+  /* hero */
+  .hero{padding:clamp(56px,9vw,92px) 0 clamp(40px,7vw,58px)}
+  .hero-grid{display:grid; grid-template-columns:1fr minmax(250px,360px); gap:clamp(28px,5vw,58px); align-items:center}
+  @media(max-width:820px){ .hero-grid{grid-template-columns:1fr; gap:38px} }
+  .hero-fig svg.gauge{display:block; width:100%; max-width:340px; height:auto; margin:0 auto}
+  .hero-cap{margin:16px auto 0; max-width:340px}
+  .hero-cap .lab{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--brass); display:block; margin-bottom:6px}
+  .hero-cap .t{font-size:12.5px; color:var(--faint); line-height:1.55}
+  .kicker{color:var(--brass); letter-spacing:.24em}
+  h1{font-family:var(--serif); font-weight:300; font-size:clamp(30px,6.4vw,64px); line-height:1.05; letter-spacing:-.01em; margin:20px 0 0; max-width:14ch}
+  h1 em{font-style:italic; color:var(--cool)}
+  .lede{font-size:clamp(16px,2vw,20px); color:var(--dim); max-width:600px; margin:24px 0 0; font-weight:300}
+  .limit{margin:26px 0 0; padding:15px 20px; border-left:2px solid var(--warm-line); background:linear-gradient(90deg,rgba(197,107,95,.06),transparent); max-width:620px}
+  .limit b{color:var(--warm); font-weight:500}
+
+  /* buttons */
+  .btn{font-family:var(--mono); font-size:11.5px; letter-spacing:.13em; text-transform:uppercase; padding:13px 22px; border-radius:2px; text-decoration:none; transition:.2s; display:inline-flex; align-items:center; gap:9px; cursor:pointer; border:1px solid transparent}
+  .btn.solid{background:var(--ink); color:var(--bg)}
+  .btn.solid:hover{background:#fff}
+  .btn.ghost{border:1px solid var(--hair); color:var(--dim); background:transparent}
+  .btn.ghost:hover{color:var(--ink); border-color:var(--cool-line)}
+  .soon{font-size:8.5px; vertical-align:super; margin-left:5px; color:var(--faint); letter-spacing:.05em}
+
+  /* sections */
+  section{padding:clamp(52px,8vw,76px) 0; border-top:1px solid var(--hair2)}
+  .eyebrow{color:var(--faint)}
+  h2{font-family:var(--serif); font-weight:300; font-size:clamp(24px,3.4vw,36px); line-height:1.14; letter-spacing:-.01em; margin:14px 0 0}
+  .sec-lede{color:var(--dim); font-size:16.5px; max-width:640px; margin:18px 0 0}
+  p.body{color:var(--dim); font-size:16px; margin:18px 0 0; max-width:660px}
+  p.body strong{color:var(--ink); font-weight:400}
+
+  /* ===== SELECTOR (the spine) ===== */
+  .selector{padding-top:clamp(40px,6vw,60px)}
+  .sel-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
+  .sel-head h2{margin:0}
+  .stance-card{margin:30px 0 26px; background:linear-gradient(120deg,rgba(143,166,176,.09),rgba(143,166,176,0)); border:1px solid var(--cool-line); border-radius:5px; padding:22px 24px; display:flex; gap:22px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+  .stance-card .txt{max-width:560px}
+  .stance-card .lvl{font-family:var(--mono); font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--cool)}
+  .stance-card h3{font-family:var(--serif); font-weight:400; font-size:19px; margin:7px 0 5px}
+  .stance-card p{color:var(--dim); font-size:14.5px; margin:0}
+
+  .picker-hint{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); margin:6px 0 14px}
+  .items{border:1px solid var(--hair); border-radius:5px; overflow:hidden}
+  .item{border-top:1px solid var(--hair2)}
+  .item:first-child{border-top:none}
+  .q{width:100%; text-align:left; background:var(--panel); border:none; cursor:pointer; padding:19px 22px; display:flex; align-items:center; gap:16px; transition:background .2s; font-family:var(--sans)}
+  .q:hover{background:var(--panel2)}
+  .q .qi{flex:none; width:26px; height:26px; border:1px solid var(--cool-line); border-radius:50%; display:grid; place-items:center; color:var(--cool); transition:.25s}
+  .q .qi svg{width:12px; height:12px}
+  .item.open .q{background:var(--panel2)}
+  .item.open .q .qi{background:var(--cool); border-color:var(--cool); color:var(--bg); transform:rotate(45deg)}
+  .q .ql{font-size:17px; color:var(--ink); font-weight:300; line-height:1.3}
+  .a{max-height:0; overflow:hidden; transition:max-height .38s ease; background:var(--bg2)}
+  .item.open .a{max-height:1400px}
+  .a-in{padding:6px 22px 26px 64px}
+  @media(max-width:560px){ .a-in{padding:6px 20px 24px 20px} }
+  .rowline{display:flex; gap:12px; padding:11px 0; border-top:1px solid var(--hair2); font-size:15px}
+  .rowline:first-child{border-top:none}
+  .rk{flex:none; width:96px; font-family:var(--mono); font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--faint); padding-top:3px}
+  .rv{color:var(--dim)}
+  .rv b{color:var(--ink); font-weight:400}
+  .rv .tool{color:var(--cool)}
+  .rv .hand{color:var(--warm)}
+  .tag-soon{display:inline-block; font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--warm); border:1px solid var(--warm-line); border-radius:2px; padding:2px 6px; margin-left:8px; vertical-align:middle}
+  .promptbox{margin:16px 0 0}
+  .promptbox pre{background:var(--bg); border:1px solid var(--hair2); border-radius:3px; padding:15px 16px; font-family:var(--mono); font-size:12px; line-height:1.65; color:var(--dim); white-space:pre-wrap; overflow-wrap:break-word; margin:0 0 12px}
+  .copy{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); background:transparent; border:1px solid var(--hair); border-radius:2px; padding:9px 15px; cursor:pointer; transition:.2s}
+  .copy:hover{color:var(--ink); border-color:var(--cool-line)}
+  .copy.done{color:var(--rich-c); border-color:var(--rich-c)}
+
+  /* read-more layer */
+  .commits{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--hair2); border:1px solid var(--hair2); margin:36px 0 0; border-radius:3px; overflow:hidden}
+  @media(max-width:640px){ .commits{grid-template-columns:1fr} }
+  .commit{background:var(--panel); padding:24px 24px 26px}
+  .commit .n{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; color:var(--cool)}
+  .commit h3{font-family:var(--serif); font-weight:400; font-size:19px; margin:11px 0 8px; color:var(--ink)}
+  .commit p{color:var(--dim); font-size:14.5px; margin:0}
+
+  .figure{margin:40px 0 0; background:var(--bg2); border:1px solid var(--hair); border-radius:4px; padding:30px 26px 22px}
+  .scrollx{overflow-x:auto}
+  .figure svg{display:block; width:100%; min-width:540px; height:auto; margin:0 auto}
+  .figcap{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); margin:18px 0 0; text-align:center}
+
+  .vein{margin:34px 0 0; padding:26px 28px; background:linear-gradient(120deg,rgba(143,166,176,.05),transparent); border:1px solid var(--hair); border-radius:4px}
+  .vein p{color:var(--dim); font-size:15.5px; max-width:640px}
+  .vein p strong{color:var(--ink); font-weight:400}
+
+  details.more{margin:26px 0 0; border-top:1px solid var(--hair2)}
+  details.more>summary{list-style:none; cursor:pointer; padding:22px 0 0; font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--cool); display:flex; align-items:center; gap:10px}
+  details.more>summary::-webkit-details-marker{display:none}
+  details.more>summary::after{content:"+"; color:var(--faint)}
+  details.more[open]>summary::after{content:"–"}
+
+  /* footer */
+  footer{border-top:1px solid var(--hair); padding:52px 0 68px}
+  .foot-in{display:flex; justify-content:space-between; gap:28px; flex-wrap:wrap; align-items:flex-start}
+  .foot-links{display:flex; gap:24px; flex-wrap:wrap}
+  .foot-links a{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); text-decoration:none; transition:.2s}
+  .foot-links a:hover{color:var(--ink)}
+  .foot-note{color:var(--faint); font-size:12.5px; max-width:340px; line-height:1.7}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="/"><b>Precision</b> Toolkit <span style="color:var(--brass)">for AI</span></a>
+    <div class="tabs">
+      <a class="tab keep" href="#start">Start</a>
+      <a class="tab" href="#thinking">Thinking</a>
+      <a class="tab keep" href="#repo">Repo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+   <div class="hero-text">
+    <div class="mono kicker">Precision as a transferable stance</div>
+    <h1>Get the reference right. Build on it <em>without loss.</em></h1>
+    <p class="lede">A workbench of tools that carry precision, worked to a high finish in fields that rarely talk to each other, into work that usually goes without it: coordination, evaluation, and meaning.</p>
+    <div class="limit">
+      <p style="margin:0; color:var(--dim); font-size:15.5px">These tools establish <b>what is actually there</b>, the verified floor. They do not tell you what it is worth. That judgment stays yours.</p>
+    </div>
+   </div>
+   <div class="hero-fig">
+    <svg class="gauge" viewBox="0 0 520 520" fill="none" aria-hidden="true">
+    <!-- calibration scale -->
+    <g stroke="#c2a878" stroke-width="1" opacity="0.75">
+      <line x1="150" y1="150" x2="150" y2="452"/>
+      <line x1="138" y1="150" x2="150" y2="150"/><line x1="142" y1="172" x2="150" y2="172"/><line x1="142" y1="194" x2="150" y2="194"/><line x1="142" y1="216" x2="150" y2="216"/>
+      <line x1="138" y1="238" x2="150" y2="238"/><line x1="142" y1="260" x2="150" y2="260"/><line x1="142" y1="282" x2="150" y2="282"/><line x1="142" y1="304" x2="150" y2="304"/>
+      <line x1="138" y1="326" x2="150" y2="326"/><line x1="142" y1="348" x2="150" y2="348"/><line x1="142" y1="370" x2="150" y2="370"/><line x1="142" y1="392" x2="150" y2="392"/>
+      <line x1="138" y1="414" x2="150" y2="414"/><line x1="142" y1="436" x2="150" y2="436"/>
+    </g>
+    <!-- gauge blocks, wrung on the datum, building a traceable dimension -->
+    <g stroke="#8fa6b0" stroke-width="1.1" fill="#141416" fill-opacity="0.55">
+      <rect x="225" y="408" width="150" height="44"/>
+      <rect x="236" y="364" width="128" height="44"/>
+      <rect x="219" y="320" width="162" height="44"/>
+      <rect x="240" y="276" width="120" height="44"/>
+      <rect x="227" y="232" width="146" height="44"/>
+      <rect x="233" y="188" width="134" height="44"/>
+    </g>
+    <!-- wrung hairlines between blocks -->
+    <g stroke="#c2a878" stroke-width="0.5" opacity="0.5">
+      <line x1="236" y1="408" x2="364" y2="408"/><line x1="240" y1="364" x2="360" y2="364"/>
+      <line x1="240" y1="320" x2="360" y2="320"/><line x1="240" y1="276" x2="360" y2="276"/><line x1="233" y1="232" x2="367" y2="232"/>
+    </g>
+    <!-- datum baseline -->
+    <g stroke="#c2a878" stroke-width="1.25" opacity="0.85">
+      <line x1="120" y1="452" x2="420" y2="452"/>
+    </g>
+    <g fill="#c2a878" opacity="0.85"><path d="M150 452 l7 -12 l-14 0 z"/></g>
+    <g stroke="#c2a878" stroke-width="0.75" opacity="0.5"><path d="M126 458 l-6 8 M140 458 l-6 8 M154 458 l-6 8 M168 458 l-6 8 M182 458 l-6 8"/></g>
+    <!-- built dimension -->
+    <g stroke="#c56b5f" stroke-width="1" opacity="0.8">
+      <line x1="405" y1="188" x2="405" y2="452"/>
+      <path d="M405 188 l-5 10 l10 0 z" fill="#c56b5f" stroke="none"/>
+      <path d="M405 452 l-5 -10 l10 0 z" fill="#c56b5f" stroke="none"/>
+    </g>
+    </svg>
+    <div class="hero-cap"><span class="lab">Gauge blocks</span><span class="t">A gauge block is a certified length, accurate to millionths of an inch. Stacked up from a reference surface, blocks build any dimension without accumulating error. They were precision's original reference standard in machining, and a literal picture of the idea here: get the reference right, then build on it without loss.</span></div>
+   </div>
+  </div>
+</header>
+
+<!-- ===== START: THE SELECTOR ===== -->
+<section id="start" class="selector">
+  <div class="wrap">
+    <div class="sel-head">
+      <div>
+        <div class="mono eyebrow">Start with your problem</div>
+        <h2>What are you trying to do?</h2>
+      </div>
+    </div>
+
+    <!-- stance shortcut -->
+    <div class="stance-card">
+      <div class="txt">
+        <div class="lvl">No problem to pick yet?</div>
+        <h3>Just make your AI work this way.</h3>
+        <p>One standing instruction that changes how your assistant works: reach for missing context, build the case that breaks its own answer, keep the verdict yours.</p>
+      </div>
+      <button class="copy" data-t="p-stance" style="align-self:center">Copy the stance prompt</button>
+      <pre id="p-stance" hidden>Work with me in a precise stance. Before answering:
+1. Reach for the missing context rather than filling the gap with a guess.
+2. Get the reference right before you measure anything against it.
+3. Build the case that would break your own answer, and keep only what survives it.
+4. Name which frame a claim sits in (surface, structure, or whole) and do not mix them.
+5. Establish what is actually there, then hand the worth-judgment back to me. Do not fake the verdict.</pre>
+    </div>
+
+    <div class="picker-hint">Pick the one that fits. It opens the tool, the fit test, and a prompt you can run.</div>
+
+    <div class="items" id="items">
+
+      <!-- 1 -->
+      <div class="item">
+        <button class="q"><span class="qi"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="ql">Evaluate something when there is no standard to measure against</span></button>
+        <div class="a"><div class="a-in">
+          <div class="rowline"><div class="rk">Tool</div><div class="rv"><span class="tool">The three-plate method.</span> Take three or more genuinely independent reads, grind them against each other (test each against the others) across the whole object; the convergence is the verified floor, the divergence is the contested map.</div></div>
+          <div class="rowline"><div class="rk">Fits when</div><div class="rv">A verified floor would settle your question, you can get three reads that differ at the root, and you do not need the tool to tell you what the thing is worth. If a standard already exists, inherit it instead.</div></div>
+          <div class="rowline"><div class="rk">Inside AI</div><div class="rv">The grind runs to the floor, with one hard guard: the three reads must be genuinely independent, not one model's restatements. <span class="hand">The worth-judgment stays with you.</span></div></div>
+          <div class="promptbox">
+            <pre id="p1">Here is something I need to evaluate, and there is no standard to measure it against: [PASTE].
+
+Give me three genuinely independent reads of it, each from a different starting frame, not three restatements of one view. Grind them against each other across the whole thing. Report only what all three converge on as the verified floor, and separately map where they diverge as the contested territory. Do not tell me what it is worth. Leave that judgment to me.</pre>
+            <button class="copy" data-t="p1">Copy prompt</button>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- 2 -->
+      <div class="item">
+        <button class="q"><span class="qi"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="ql">Cut a claim or spec down to what is load-bearing</span></button>
+        <div class="a"><div class="a-in">
+          <div class="rowline"><div class="rk">Tool</div><div class="rv"><span class="tool">The sharper Occam's razor,</span> riding on the frame-primacy grind. A thing is excess only if a sharp rival frame exposes it as a preference and a lossless-reconstruction test forecloses over-cutting.</div></div>
+          <div class="rowline"><div class="rk">Fits when</div><div class="rv">You can hold a genuine rival frame, sharper than a generic objection, and you can state what lossless reconstruction means for your object so the razor does not amputate real structure.</div></div>
+          <div class="rowline"><div class="rk">Inside AI</div><div class="rv">The grind and the cut run to the minimal basis. Stop at the first round that brings no new independent surface; past the basis it manufactures false divergences. <span class="hand">The stop is a rule, not a feeling.</span></div></div>
+          <div class="promptbox">
+            <pre id="p2">Here is a claim or spec I want cut to what is load-bearing: [PASTE].
+
+Hold a genuine rival frame against it, sharper than a generic objection. Cut only what that rival exposes as my preference rather than real structure. Stop the moment a lossless-reconstruction test says any further cut would lose something real. Show me what is load-bearing, what was excess, and where you stopped and why.</pre>
+            <button class="copy" data-t="p2">Copy prompt</button>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- 3 -->
+      <div class="item">
+        <button class="q"><span class="qi"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="ql">Name a domain that has no agreed vocabulary</span></button>
+        <div class="a"><div class="a-in">
+          <div class="rowline"><div class="rk">Tool</div><div class="rv"><span class="tool">The Dimensional Frame Language diagnostics.</span> Place each candidate frame at its level, grind the rival decompositions to their shared basis, then name that basis in terms that carry their meaning.</div></div>
+          <div class="rowline"><div class="rk">Fits when</div><div class="rv">The terms are absent or contested and the decomposition matters.</div></div>
+          <div class="rowline"><div class="rk">Inside AI</div><div class="rv">The placement, the grind, and the vocabulary check run inside AI. <span class="hand">The check that you are not imposing structure the domain does not have stays with you.</span></div></div>
+          <div class="promptbox">
+            <pre id="p3">I need to name or decompose a domain that has no agreed vocabulary: [DOMAIN].
+
+Place each candidate frame at its level, so we are not arguing a surface claim against a structural one. Grind the rival decompositions down to the basis they all reduce into. Name that basis in terms that do not smuggle in unearned weight. Flag anywhere we might be imposing structure the domain does not actually have, and leave that call to me.</pre>
+            <button class="copy" data-t="p3">Copy prompt</button>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- 4 -->
+      <div class="item">
+        <button class="q"><span class="qi"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="ql">Check terms for hidden weight</span></button>
+        <div class="a"><div class="a-in">
+          <div class="rowline"><div class="rk">Tool</div><div class="rv"><span class="tool">The Dimensional Frame Language vocabulary discipline.</span> It flags terms that import unearned weight, latent claims of authority, deference patterns, and quiet substitutions, and offers the operational replacement.</div></div>
+          <div class="rowline"><div class="rk">Fits when</div><div class="rv">There are terms in a specification, a claim, or a document whose wording matters.</div></div>
+          <div class="rowline"><div class="rk">Inside AI</div><div class="rv">Fully. This is the most automatable tool in the kit, and it already runs live in the public Dimensional Frame Language analyzer and the open-source language server.</div></div>
+          <div class="promptbox">
+            <pre id="p4">Check this text for terms that import unearned weight: latent claims of authority, deference patterns, quiet substitutions, or words borrowing meaning they have not earned: [PASTE].
+
+For each flagged term, name what the term is quietly claiming, and give the operational replacement that states plainly what it does.</pre>
+            <button class="copy" data-t="p4">Copy prompt</button>
+          </div>
+          <div class="rowline" style="margin-top:6px"><div class="rk">Live tool</div><div class="rv"><a href="https://frame-language-analyzer.vercel.app" target="_blank" rel="noopener" style="color:var(--cool)">frame-language-analyzer.vercel.app ↗</a></div></div>
+        </div></div>
+      </div>
+
+      <!-- 5 -->
+      <div class="item">
+        <button class="q"><span class="qi"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="ql">Check an AI result you can't verify against anything</span></button>
+        <div class="a"><div class="a-in">
+          <div class="rowline"><div class="rk">Tool</div><div class="rv"><span class="tool">The three-plate method, with independent frames as the plates.</span> Three genuinely different frames, ideally different base models, grind the result; the floor is what survives all of them.</div></div>
+          <div class="rowline"><div class="rk">Fits when</div><div class="rv">You can assemble three genuinely independent checks. It fails worst when the three share a base model or a training, because then they are one plate and their agreement is an artifact.</div></div>
+          <div class="rowline"><div class="rk">Inside AI</div><div class="rv">This is the case that runs inside AI most, and is most often gotten wrong, because independence is the whole game and the hardest thing to get from one system. <span class="hand">The acceptance decision stays with you.</span></div></div>
+          <div class="promptbox">
+            <pre id="p5">I have an AI output I cannot check against any oracle: [PASTE].
+
+Assemble three genuinely independent checks of it, ideally different base models or genuinely different approaches, not one model restated three times. Report only what survives all three as the floor, and where they disagree. Tell me if the three are not truly independent. The accept-or-reject call is mine.</pre>
+            <button class="copy" data-t="p5">Copy prompt</button>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- 6 -->
+      <div class="item">
+        <button class="q"><span class="qi"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="ql">Carry an existing standard without losing precision</span></button>
+        <div class="a"><div class="a-in">
+          <div class="rowline"><div class="rk">Tool</div><div class="rv"><span class="tool">The gauge-block principle and composition from a minimal basis.</span> Precision does not transfer between layers for free, so you carry it deliberately, building every form as a configuration of declared primitives.</div></div>
+          <div class="rowline"><div class="rk">Fits when</div><div class="rv">A standard already exists. This is the companion to the three-plate method: where that one bootstraps a reference because none exists, this one carries a reference you already have.</div></div>
+          <div class="rowline"><div class="rk">Inside AI</div><div class="rv">The composition is mechanizable.</div></div>
+          <div class="promptbox">
+            <pre id="p6">I already have a standard and need to carry it into new forms without losing precision: [STANDARD].
+
+Build every form as a configuration of declared primitives from a minimal basis, so precision does not leak between layers. Flag anywhere a form is not fully reducible to the declared primitives, because that is where the precision is being lost.</pre>
+            <button class="copy" data-t="p6">Copy prompt</button>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- 7 -->
+      <div class="item">
+        <button class="q"><span class="qi"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="ql">Make disconfirmation repeatable and auditable<span class="tag-soon">design stage</span></span></button>
+        <div class="a"><div class="a-in">
+          <div class="rowline"><div class="rk">Tool</div><div class="rv"><span class="tool">The disconfirmation practice construct.</span> The standing instrument that wraps the grind with an append-only registry, a revert when a round breaks nothing, and the dry-round stop as a gate a machine can read.</div></div>
+          <div class="rowline"><div class="rk">Fits when</div><div class="rv">The grind is recurring and its auditability matters. It is built for the AI context, because it routes its own residue, the part it cannot settle, out to a human or a different model.</div></div>
+          <div class="rowline"><div class="rk">Status</div><div class="rv">This is a design and build plan, not yet a built tool. The mechanism is specified; the instrument is not yet standing.</div></div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== THINKING (read-more layer) ===== -->
+<section id="thinking">
+  <div class="wrap">
+    <div class="narrow">
+      <div class="mono eyebrow">The thinking behind it</div>
+      <h2>Not a method to adopt whole. A workbench to reach into.</h2>
+      <p class="body">It is not a theory you have to believe. The tools are built to combine, so reaching for one tends to set up the next. They come from a single move: taking precision, <strong>the discipline of getting the reference right and then building on it without loss</strong>, and reinstating it where the material is softer. That shared source is why the tools fit together rather than sitting as a pile.</p>
+    </div>
+
+    <div class="commits">
+      <div class="commit"><div class="n">01 · Precision first</div><h3>Get the reference right before you measure.</h3><p>Most failures are not measurement errors. They are missing or merely local references.</p></div>
+      <div class="commit"><div class="n">02 · Disconfirmation</div><h3>Grind it against something built differently.</h3><p>Convergence between independent accounts is the signal; a single confident account is the thing to distrust.</p></div>
+      <div class="commit"><div class="n">03 · Frame awareness</div><h3>Know which frame you are in.</h3><p>Surface, structure, and whole are three different stances. Most confusion is a claim made in one and read in another.</p></div>
+      <div class="commit"><div class="n">04 · Honesty about where it stops</div><h3>Establish the floor. Hand back the verdict.</h3><p>A tool that pretends to deliver the verdict is the failure these are built against.</p></div>
+    </div>
+
+    <details class="more">
+      <summary>See how the pieces fit together</summary>
+
+      <div class="figure">
+        <div class="scrollx">
+        <svg viewBox="0 0 900 200" role="img" aria-label="The bound pair: the machine reaches the floor, the person keeps the verdict.">
+          <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#41535c"/></marker></defs>
+          <line x1="150" y1="100" x2="750" y2="100" stroke="#41535c" stroke-width="1.25"/>
+          <circle cx="150" cy="100" r="46" fill="none" stroke="#8fa6b0" stroke-width="1.5"/>
+          <text x="150" y="96" text-anchor="middle" fill="#ECEAE2" font-family="Geist Mono,monospace" font-size="12" letter-spacing="1">REACH</text>
+          <text x="150" y="112" text-anchor="middle" fill="#ECEAE2" font-family="Geist Mono,monospace" font-size="12" letter-spacing="1">THE FLOOR</text>
+          <text x="150" y="168" text-anchor="middle" fill="#8fa6b0" font-family="Geist Mono,monospace" font-size="10.5" letter-spacing="1.5">CONFORMANCE · MACHINE</text>
+          <circle cx="750" cy="100" r="46" fill="none" stroke="#c56b5f" stroke-width="1.5"/>
+          <text x="750" y="96" text-anchor="middle" fill="#ECEAE2" font-family="Geist Mono,monospace" font-size="12" letter-spacing="1">KEEP</text>
+          <text x="750" y="112" text-anchor="middle" fill="#ECEAE2" font-family="Geist Mono,monospace" font-size="12" letter-spacing="1">THE VERDICT</text>
+          <text x="750" y="168" text-anchor="middle" fill="#c56b5f" font-family="Geist Mono,monospace" font-size="10.5" letter-spacing="1.5">JUDGMENT · PERSON</text>
+          <line x1="360" y1="100" x2="410" y2="100" stroke="#41535c" stroke-width="1.25" marker-end="url(#ar)"/>
+          <text x="450" y="80" text-anchor="middle" fill="#b9b7ad" font-family="Fraunces,serif" font-size="17" font-style="italic">the hand-off</text>
+          <text x="450" y="128" text-anchor="middle" fill="#8a887e" font-family="Geist Mono,monospace" font-size="10" letter-spacing="1">WHERE THE FLOOR IS SET, NOT THE WORTH</text>
+          <line x1="490" y1="100" x2="540" y2="100" stroke="#41535c" stroke-width="1.25"/>
+        </svg>
+        </div>
+        <div class="figcap">The bound pair: let the machine reach the floor, keep the verdict human</div>
+      </div>
+
+      <div class="figure">
+        <div class="scrollx">
+        <svg viewBox="0 0 900 210" role="img" aria-label="Two worked chains ending in a human worth-judgment.">
+          <defs><marker id="ar2" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#41535c"/></marker></defs>
+          <text x="20" y="42" fill="#8a887e" font-family="Geist Mono,monospace" font-size="10" letter-spacing="1.5">EVALUATE WITHOUT A STANDARD</text>
+          <g font-family="Geist,sans-serif" font-size="11.5" fill="#ECEAE2" text-anchor="middle">
+            <g><rect x="20" y="55" width="118" height="40" rx="4" fill="#191a1d" stroke="#41535c"/><text x="79" y="79">Grind to floor</text></g>
+            <g><rect x="170" y="55" width="118" height="40" rx="4" fill="#191a1d" stroke="#41535c"/><text x="229" y="79">Cut the excess</text></g>
+            <g><rect x="320" y="55" width="118" height="40" rx="4" fill="#191a1d" stroke="#41535c"/><text x="379" y="79">Hold the terms</text></g>
+            <g><rect x="470" y="55" width="118" height="40" rx="4" fill="#191a1d" stroke="#41535c"/><text x="529" y="79">Trace the chain</text></g>
+          </g>
+          <g stroke="#41535c" stroke-width="1" fill="none" marker-end="url(#ar2)"><line x1="138" y1="75" x2="168" y2="75"/><line x1="288" y1="75" x2="318" y2="75"/><line x1="438" y1="75" x2="468" y2="75"/><line x1="588" y1="75" x2="690" y2="103"/></g>
+          <text x="20" y="132" fill="#8a887e" font-family="Geist Mono,monospace" font-size="10" letter-spacing="1.5">NAME A DOMAIN WITH NO VOCABULARY</text>
+          <g font-family="Geist,sans-serif" font-size="11.5" fill="#ECEAE2" text-anchor="middle">
+            <g><rect x="20" y="145" width="118" height="40" rx="4" fill="#191a1d" stroke="#41535c"/><text x="79" y="169">Place by level</text></g>
+            <g><rect x="170" y="145" width="118" height="40" rx="4" fill="#191a1d" stroke="#41535c"/><text x="229" y="169">Grind to basis</text></g>
+            <g><rect x="320" y="145" width="118" height="40" rx="4" fill="#191a1d" stroke="#41535c"/><text x="379" y="169">Name the basis</text></g>
+          </g>
+          <g stroke="#41535c" stroke-width="1" fill="none" marker-end="url(#ar2)"><line x1="138" y1="165" x2="168" y2="165"/><line x1="288" y1="165" x2="318" y2="165"/><line x1="438" y1="165" x2="690" y2="118"/></g>
+          <circle cx="760" cy="105" r="52" fill="none" stroke="#c56b5f" stroke-width="1.5"/>
+          <text x="760" y="100" text-anchor="middle" fill="#ECEAE2" font-family="Geist Mono,monospace" font-size="11" letter-spacing="1">WORTH-</text>
+          <text x="760" y="116" text-anchor="middle" fill="#ECEAE2" font-family="Geist Mono,monospace" font-size="11" letter-spacing="1">JUDGMENT</text>
+          <text x="760" y="182" text-anchor="middle" fill="#c56b5f" font-family="Geist Mono,monospace" font-size="9.5" letter-spacing="1.5">STAYS HUMAN</text>
+        </svg>
+        </div>
+        <div class="figcap">The value is the chain: both worked chains end where the verdict stays yours</div>
+      </div>
+    </details>
+
+    <div class="vein" style="margin-top:40px">
+      <div class="mono eyebrow" style="margin-bottom:10px">Adopt the vein, not the fingerprint</div>
+      <p>These are the tools this way of working was built with. They are one person's fingerprint. <strong>What transfers is the obligation they discharge</strong>: getting the reference right, grinding against independence, keeping the verdict human. You can discharge that obligation with these tools or with your own.</p>
+      <p style="margin-top:14px">The released toolkit is the structural showing. The personal account of why this way of working came to be is held privately and is not part of the release, named where it is referenced so the structure is honest about its own edges.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="repo">
+  <div class="wrap foot-in">
+    <div>
+      <div class="mono" style="color:var(--ink); letter-spacing:.2em">Precision Toolkit for AI · PT4AI</div>
+      <p class="foot-note" style="margin-top:14px">Precision drawn across fields and reinstated where the material is softer. Released under CC BY 4.0. The tools establish the floor; the verdict stays yours.</p>
+    </div>
+    <div class="foot-links">
+      <a href="https://github.com/durgadasji/precision-toolkit-for-ai" target="_blank" rel="noopener">Repository ↗</a>
+      <a href="https://frame-language-analyzer.vercel.app" target="_blank" rel="noopener">Dimensional Frame Language analyzer ↗</a>
+      <a href="https://paragraph.com/@holonic-horizons/a-sharper-occams-razor" target="_blank" rel="noopener">A Sharper Occam's Razor ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // accordion: one open at a time
+  document.querySelectorAll('#items .q').forEach(function(q){
+    q.addEventListener('click', function(){
+      var item = q.parentElement;
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('#items .item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+  // copy buttons (works for hidden <pre> too)
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var el = document.getElementById(btn.getAttribute('data-t'));
+      navigator.clipboard.writeText(el.innerText).then(function(){
+        var old = btn.textContent;
+        btn.textContent = 'Copied ✓'; btn.classList.add('done');
+        setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1800);
+      });
+    });
+  });
+</script>
+</body>
+</html>

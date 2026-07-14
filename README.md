@@ -8,7 +8,7 @@ The tools come from one move: taking precision, the discipline of getting the re
 
 If you already know your problem, go to the tool selector, which routes from the problem to the tool and to the guide for running it. This overview is the orientation to read first: what the tools share, how they chain, and how much of each you can hand to a machine.
 
-The toolkit also has a web front door at https://durgadasji.github.io/precision-toolkit-for-ai/, the same routing as a narrative page, with prompts you can copy and run in your own AI immediately. The general-register essay behind the sharper razor, *A Sharper Occam's Razor*, is published at https://paragraph.com/@holonic-horizons/a-sharper-occams-razor.
+The toolkit also has a web front door at https://precision.regischapman.com, the same routing as a narrative page, with prompts you can copy and run in your own AI immediately. The general-register essay behind the sharper razor, *A Sharper Occam's Razor*, is published at https://paragraph.com/@holonic-horizons/a-sharper-occams-razor.
 
 ## What is in this repository
 

@@ -49,9 +49,9 @@ Tool: the Frame Language vocabulary discipline, the watchlist and admissibility 
 
 Fits when: there are terms in a specification, a claim, or a document whose wording matters.
 
-Inside AI: fully. This one runs inside AI cleanly, and it already runs in the public Frame Language analyzer at https://frame-language-analyzer.vercel.app and in the open-source language server. It is the most automatable tool in the kit, because catching a flagged term and offering its replacement is conformance work end to end.
+Inside AI: fully. This one runs inside AI cleanly, and it already runs in the public Frame Language analyzer at https://framelanguage.regischapman.com and in the open-source language server. It is the most automatable tool in the kit, because catching a flagged term and offering its replacement is conformance work end to end.
 
-Guide: guides/vocabulary-check.md, which runs against the public Frame Language analyzer (https://frame-language-analyzer.vercel.app) and the open-source language server.
+Guide: guides/vocabulary-check.md, which runs against the public Frame Language analyzer (https://framelanguage.regischapman.com) and the open-source language server.
 
 ## You have to check a result and there is no oracle
 

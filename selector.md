@@ -63,6 +63,16 @@ Inside AI: this is the case that runs inside AI most, and is most often gotten w
 
 Guide: guides/three-plate-method.md, the model-output reading.
 
+## You have to evaluate many candidates at scale, with scoring that resists groupthink
+
+Tool: the multi-agent evaluation council, the automated instance of the three-plate method. A roster of evaluator agents scores each candidate independently and never sees the others' scores, data agents gather what each evaluator works from, and a synthesizer converges the independent scores into a report. I run it with the Octant Council Builder (Golem Foundation, MIT), forked and modified for this workflow; I call it as the disconfirmation-at-scale step.
+
+Fits when: you have a volume of candidates against shared dimensions, too many to run three-plate by hand, and you can vary the council's construction enough that the evaluators differ at the root. Does not fit if the whole roster rides one model on one evidence set under reworded prompts; then it is one surface in costumes and its convergence certifies nothing, exactly as three hand reads that share a base certify nothing.
+
+Inside AI: the council runs inside AI end to end, design through synthesis, with two things held back to you: the worth-verdict, as always, and the judgment of whether the roster is genuinely independent or one surface in costumes, which is the guard the whole result rests on. The base tool blocks the shallow groupthink of evaluators seeing each other; the deep independence, varying models, evidence, and framings, is what the fork wires in and what you still have to confirm.
+
+Guide: reference/multi-agent-council-disconfirmation.md, which maps the council to the three-plate move, states the independence guard, and credits the tool.
+
 ## You need disconfirmation to be repeatable and auditable
 
 Tool: the disconfirmation practice construct, the standing instrument that wraps the grind with an append-only registry, a revert when a round breaks nothing, and the dry-round stop as a gate a machine can read.

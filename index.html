@@ -321,6 +321,23 @@ Assemble three genuinely independent checks of it, ideally different base models
         </div></div>
       </div>
 
+      <!-- council -->
+      <div class="item">
+        <button class="q"><span class="qi"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="ql">Evaluate many candidates at scale, resisting groupthink</span></button>
+        <div class="a"><div class="a-in">
+          <div class="rowline"><div class="rk">Tool</div><div class="rv"><span class="tool">The multi-agent evaluation council,</span> the automated instance of the three-plate method. A roster of evaluator agents scores each candidate independently and never sees the others; a synthesizer converges the independent scores. Run with the Octant Council Builder (Golem Foundation, MIT), forked to make the evaluators independent by construction rather than only by prompt.</div></div>
+          <div class="rowline"><div class="rk">Fits when</div><div class="rv">You have a volume of candidates against shared dimensions, too many to run three-plate by hand, and you can vary the roster's construction so the evaluators differ at the root. It fails the same way three-plate does when every agent rides one model on one evidence set: one surface in several costumes, certifying nothing.</div></div>
+          <div class="rowline"><div class="rk">Inside AI</div><div class="rv">The council runs inside AI end to end, design through synthesis. Two things stay with you: the worth-verdict, and the judgment of whether the roster is genuinely independent or one model in costumes, the guard the whole result rests on. <span class="hand">The verdict stays with you.</span></div></div>
+          <div class="rowline"><div class="rk">Run it</div><div class="rv"><a href="https://precision-council.regischapman.com" target="_blank" rel="noopener"><b>Precision Council for AI ↗</b></a> runs this live, in your browser, on your own model keys. Independent evaluators stream in parallel across whatever providers you supply, and the report grades how independent the convergence actually was. Add keys from more than one provider and the evaluators span genuinely different model lineages. Nothing to install.</div></div>
+          <div class="promptbox">
+            <pre id="pcouncil">I have many candidates to evaluate against the same dimensions, too many to check three by hand: [LIST OR PASTE].
+
+Run them through a multi-agent evaluation council: independent evaluators that score without seeing each other, then a synthesis that converges the scores. Make the evaluators independent by construction, not just by prompt: vary the base model, the evidence, and the framing across them, or their agreement is one model in several costumes and certifies nothing. Report the roster's actual independence (how many distinct base models, whether they shared evidence) alongside any convergence, and discount the convergence when independence is weak. The worth-verdict is mine.</pre>
+            <button class="copy" data-t="pcouncil">Copy prompt</button>
+          </div>
+        </div></div>
+      </div>
+
       <!-- 6 -->
       <div class="item">
         <button class="q"><span class="qi"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="ql">Carry an existing standard without losing precision</span></button>
@@ -438,6 +455,7 @@ Build every form as a configuration of declared primitives from a minimal basis,
     </div>
     <div class="foot-links">
       <a href="https://github.com/durgadasji/precision-toolkit-for-ai" target="_blank" rel="noopener">Repository ↗</a>
+      <a href="https://precision-council.regischapman.com" target="_blank" rel="noopener">Precision Council for AI ↗</a>
       <a href="https://framelanguage.regischapman.com" target="_blank" rel="noopener">Dimensional Frame Language analyzer ↗</a>
       <a href="https://paragraph.com/@holonic-horizons/a-sharper-occams-razor" target="_blank" rel="noopener">A Sharper Occam's Razor ↗</a>
       <a href="https://paragraph.com/@holonic-horizons/on-funding-clarity-precision-and-structure" target="_blank" rel="noopener">On Funding ↗</a>
